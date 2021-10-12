@@ -5,13 +5,14 @@
 	 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </head>
     <body>
+	    <img src = "url('/static/'darth vader.jpeg'')">
 	            <script>
 
                			 setInterval( function(){ $('#mytime').html( "Client Time is " + new Date());}, 500);
-				 setInterval( function(){ $('#hello').html( "hello");}, 500);
         	</script>
 	    <h1 id="mytime"></h1>
 	    <h2 id="hello"> </h2>
-	    <h1>Server Time is: {{server_time}}</h1>
+	    <h1>Hello to: {{hello}} </h1>
+	    <h2>Server Time is: {{server_time}}</h2>
     </body>
 </html>

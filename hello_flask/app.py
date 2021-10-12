@@ -58,7 +58,7 @@ def auth():
 #Assigment 2
 @app.route('/ss1') #endpoint
 def ss1():
-    return render_template('server_time.html', server_time= str(datetime.datetime.now()) )
+    return render_template('server_time.html', server_time= str(datetime.datetime.now()), hello= "JP")
 
 @app.route('/getTime') #endpoint
 def get_time():
