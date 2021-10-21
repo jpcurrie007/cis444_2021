@@ -1,10 +1,10 @@
 from flask import Flask,render_template,request
 from flask_json import FlaskJSON, JsonError, json_response, as_json
-
 import jwt
 
-
 import datetime
+import bcrypt
+
 
 from db_con import get_db_instance, get_db
 
@@ -46,11 +46,17 @@ def back():
 
 @app.route('/backp',  methods=['POST']) #endpoint
 def backp():
+    print(request.form)
+    salted = bcrypt.hashpw( bytes(request.form['fname'],  'utf-8' ) , bcrypt.gensalt(10))
+    print(salted)
+
+    print(  bcrypt.checkpw(  bytes(request.form['fname'],  'utf-8' )  , salted ))
+
     return render_template('backatu.html',input_from_browser= str(request.form) )
 
 @app.route('/auth',  methods=['POST']) #endpoint
 def auth():
-        #print(request.form['username'])
+        print(request.form)
         return json_response(data=request.form)
 
 
