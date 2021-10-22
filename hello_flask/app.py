@@ -22,7 +22,7 @@ IMGS_URL = {
 CUR_ENV = "PRD"
 JWT_SECRET = None
 
-#global_db_con = get_db()
+global_db_con = get_db()
 
 
 with open("secret", "r") as f:
