@@ -47,12 +47,42 @@ def back():
 @app.route('/backp',  methods=['POST']) #endpoint
 def backp():
     print(request.form)
-    salted = bcrypt.hashpw( bytes(request.form['fname'],  'utf-8' ) , bcrypt.gensalt(10))
+    salted = bcrypt.hashpw( bytes(request.form['password'],  'utf-8' ) , bcrypt.gensalt(10))
     print(salted)
 
-    print(  bcrypt.checkpw(  bytes(request.form['fname'],  'utf-8' )  , salted ))
+    print(  bcrypt.checkpw(  bytes(request.form['password'],  'utf-8' )  , salted ))
+    
+    cur = global_db_con.cursor()
+    cur.execute("select * from books;")
+    bookList = '{"books":['
+    while True:
+        book = cur.fetchone()
+        if book is None:
+            break
+        else:
+            bookList += ", "
+            bookId=str(book[0])
+            bookName=str(book[1])
+            bookDescription=str(book[2])
+            bookList += '{"bookId": "'+ bookId + '", "bookName": "' + bookName + '", "bookDescription": "' + bookDescription + '"}'
+    bookList +=']}'
+    
+    return json_respone(data=bookList)
 
-    return render_template('backatu.html',input_from_browser= str(request.form) )
+@app.route('/getBooks', methods=['POST']) #endpoint
+def getBooks():
+    cur = global_db_con.cursor()
+    cur.execute('SELECT bookName FROM books;')
+    bookNames = cur.fetchall()
+    print(bookNames)
+    cur.execute('SELECT bookId FROM books;')
+    booksID = cur.fetchall()
+    print(booksID)
+
+    return json_response(bookNames=bookNames,booksID=booksID)
+
+
+
 
 @app.route('/auth',  methods=['POST']) #endpoint
 def auth():
