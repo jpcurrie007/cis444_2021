@@ -79,9 +79,8 @@
 
 			alert("Thank you for buying a book");
 
-			//Get name of currently selected book
-			var e = document.getElementById('bookList');
-			var strBook = e.options[e.selectedIndex].value;
+			var b = document.getElementById('bookList');
+			var strBook = b.options[b.selectedIndex].value;
 
 
 			$.ajax({
