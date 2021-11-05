@@ -65,6 +65,16 @@
 		}
         </script>
 
+	<script>
+		function goBackToLogIn()
+	{
+		console.log("clicked button to return from sign up page to log in page");
+		$('#addNewUser').hide();
+		$('#login').show();
+		return true;
+	}
+	</script>
+
 
 	<script>
 		function loginClicked()
@@ -114,13 +124,13 @@
 	<script>
 		function purchaseBookClicked()
 		{
-			var b = document.getElementById('bookList');
-			var strBook = b.options[b.selectedIndex].value;
+			var book = document.getElementById('bookList');
+			var bookBought = book.options[book.selectedIndex].value;
 
 			$.ajax({
 				type:"POST",
 				url: "/purchaseBook",
-				data: {book: strBook},
+				data: {book: bookBought},
 				success: function(data)
 				{
 					alert(data);
@@ -150,6 +160,7 @@
 			<label for="password">New Password:</label><br>
 			<input type="password" id="password" name="password" value="Password"><br><br>
 			<input type="button" value="Submit" onclick="return addNewUserClicked();">
+			<input type="button" value="Go Back" onclick="return goBackToLogIn();">
 		</form>
 	</div>
 
