@@ -7,10 +7,11 @@
     <body>
 
 	<script>
-		function check_form()
+		function checkEntryFields()
 		{
 			//update this later to check the inputs values
 			//user name taken ect...
+			//should be used i both created user and logging user in
 			alert($('#username').val());
 			alert($('#password').val());
 			return true;
@@ -19,7 +20,7 @@
 
 
 	<script>
-		function addNewUserClicked()
+		function addNewUserAction()
 		{
 			//alert("New User Created");
 			$.ajax({
@@ -46,7 +47,7 @@
 
 
 	<script>
-		function addUserClicked()
+		function addUserPressed()
 		{
 			console.log("clicked button to add a new user");
 			$('#login').hide();
@@ -56,7 +57,7 @@
 	</script>
 
 	<script>
-	        function goToLogIn()
+	        function goToLogInPressedOnBuyBooks()
                 {
 			console.log("clicked button to logout");
 			$('#books').hide();
@@ -66,22 +67,22 @@
         </script>
 
 	<script>
-		function goBackToLogIn()
-	{
-		console.log("clicked button to return from sign up page to log in page");
-		$('#addNewUser').hide();
-		$('#login').show();
-		return true;
-	}
+		function goToLogInPressedOnCreateUser()
+		{
+			console.log("clicked button to return from sign up page to log in page");
+			$('#addNewUser').hide();
+			$('#login').show();
+			return true;
+		}
 	</script>
 
 
 	<script>
-		function loginClicked()
+		function loginAction()
 		{
 			$.ajax({
 				type: "POST",
-				url: "/userAuth",
+				url: "/userLogIn",
 				data: $("#loginForm").serialize(),
 				success: function(data)
 				{
@@ -89,7 +90,7 @@
 					{
 						$('#login').hide();
 						$('#books').show();
-						showBooks();
+						getBooks();
 					}
 					else
 					{
@@ -103,7 +104,7 @@
 
 
 	<script>
-		function showBooks()
+		function getBooks()
 		{
 			$.ajax({
 				type: "GET",
@@ -112,7 +113,7 @@
 				{
 					for(var i = 0; i < data.name.length; i++)
 					{
-						$('#bookList').append($('<option>', {value: data.name[i], text: 'Title: ' + data.name[i] + ' Price: $' + data.price[i]}));
+						$('#bookList').append($('<option>', {value: data.name[i], text: 'Name: ' + data.name[i] + ' Price: $' + data.price[i]}));
 					}
 					//alert("All books listed");
 				}
@@ -122,14 +123,14 @@
 
 
 	<script>
-		function purchaseBookClicked()
+		function buyBookAction()
 		{
 			var book = document.getElementById('bookList');
 			var bookBought = book.options[book.selectedIndex].value;
 
 			$.ajax({
 				type:"POST",
-				url: "/purchaseBook",
+				url: "/buyBook",
 				data: {book: bookBought},
 				success: function(data)
 				{
@@ -148,8 +149,8 @@
 			<input type="text" id="username" name="username" value="JP"><br>
 			<label for="password">Password:</label><br>
 			<input type="password" id="password" name="password" value="Password"><br><br>
-			<input type="button" value="Login" id="Login" onclick="return loginClicked();">
-			<input type="button" value="Create New User" onclick="return addUserClicked();">
+			<input type="button" value="Login" id="Login" onclick="return loginAction();">
+			<input type="button" value="Create New User" onclick="return addUserPressed();">
 		</form>
 	</div>
 
@@ -159,8 +160,8 @@
 			<input type="text" id="username" name="username" value="JP"><br>
 			<label for="password">New Password:</label><br>
 			<input type="password" id="password" name="password" value="Password"><br><br>
-			<input type="button" value="Submit" onclick="return addNewUserClicked();">
-			<input type="button" value="Go Back" onclick="return goBackToLogIn();">
+			<input type="button" value="Submit" onclick="return addNewUserAction();">
+			<input type="button" value="Go Back" onclick="return goToLogInPressedOnCreateUser();">
 		</form>
 	</div>
 
@@ -168,8 +169,8 @@
 		<form id="bookDisplay">
 			<h1>Buy me</h1>
 			<select name="bookList" id="bookList"></select><br>
-			<input type="button" value="Purchase Book" id="purchaseButton" onclick="return purchaseBookClicked();">	
-			<input type="button" value="Log Out" onclick="return goToLogIn();">
+			<input type="button" value="Purchase Book" id="purchaseButton" onclick="return buyBookAction();">	
+			<input type="button" value="Log Out" onclick="return goToLogInPressedOnBuyBooks();">
 		</form>
 	</div>
 
