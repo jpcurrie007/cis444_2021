@@ -70,7 +70,7 @@ def backp():
     
     return json_respone(data=bookList)
 
-@app.route('/getBooksold', methods=['POST']) #endpoint dont use this jp, dont be a dumb dumb
+@app.route('/getBooksOldVersion', methods=['POST']) #endpoint dont use this jp, dont be a dumb dumb
 def getBooks():
     cur = global_db_con.cursor()
     cur.execute('SELECT bookName FROM books;')
@@ -149,43 +149,40 @@ def retrieveBooks():
 def userAuth():
     #print(request.form)
     cur = global_db_con.cursor()
-    dbEntry = "SELECT password FROM users WHERE username ='"
-    dbEntry += request.form['username']
-    dbEntry += "';"
-    #print(dbEntry)
-    cur.execute(dbEntry)
-    r = cur.fetchone();
-    #print(r[0])
-    uPass = str(r[0])
-    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), uPass.encode('utf-8')):
+    dbCmdForGettingPass = "SELECT password FROM users WHERE username ='"
+    dbCmdForGettingPass += request.form['username']
+    dbCmdForGettingPass += "';"
+    #print(dbCmdForGettingPass)
+    cur.execute(dbCmdForGettingPass)
+    userPassword = cur.fetchone();
+    #print(userPassword[0])
+    #below needed because we can have more then one use with same name
+    #fix this in the static page
+    userPass = str(userPassword[0])
+    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), userPass.encode('utf-8')):
         return "VALID"
-    #print("INVALID")
     return "INVALID"
 
 
 @app.route('/createNewUser', methods = ['POST']) #endpoint
 def createNewUser():
     #print(request.form)
-    #get user info
     newUser = request.form['username']
     #print(newUser)
-    newPass = request.form['password']
+    newPassword = request.form['password']
     #print(newPass)
-    #salt user password
-    salted = bcrypt.hashpw(bytes(request.form['password'], 'utf-8'), bcrypt.gensalt(10))
-    #Creating database entry
-    dbEntry = "INSERT INTO users(username, password) VALUES('"
-    dbEntry += str(newUser)
-    dbEntry += "','"
-    dbEntry += str(salted.decode('utf-8'))
-    dbEntry += "');"
-    #
-    #print(dbEntry)
+    saltedPassword = bcrypt.hashpw(bytes(newPassword, 'utf-8'), bcrypt.gensalt(10))
+    dbCmdForNewUser = "INSERT INTO users(username, password) VALUES('"
+    dbCmdForNewUser += str(newUser)
+    dbCmdForNewUser += "','"
+    dbCmdForNewUser += str(saltedPassword.decode('utf-8'))
+    dbCmdForNewUser += "');"
+    #print(dbCmdForNewUser)
     cur = global_db_con.cursor()
-    cur.execute(dbEntry)
-    #
+    cur.execute(dbCmdForNewUser)
     global_db_con.commit()
     return "VALID"
+    #should add way to return if there was an issue adding user to db, different then form check
 
 @app.route('/purchaseBook', methods = ['POST']) #endpoint
 def purchaseBook():
@@ -193,32 +190,32 @@ def purchaseBook():
 
 #    print(request.form)
 #    cur = global_db_con.cursor()
-#    dbEntry = "SELECT password FROM users WHERE username ='"
-#    dbEntry += request.form['username']
-#    dbEntry += "';"
-#    #print(dbEntry)
-#    cur.execute(dbEntry)
-#    r = cur.fetchone();
-#    #print(r[0])
-#    uPass = str(r[0])
-#    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), uPass.encode('utf-8')):
+#    dbCmdForValidatingUser = "SELECT password FROM users WHERE username ='"
+#    dbCmdForValidatingUser += request.form['username']
+#    dbCmdForValidatingUser += "';"
+#    #print(dbCmdForValidatingUser)
+#    cur.execute(dbCmdForValidatingUser)
+#    userPassword = cur.fetchone();
+#    #print(userPassword[0])
+#    userPass = str(UserPassword[0])
+#    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), userPass.encode('utf-8')):
     #print("buying book")
     cur = global_db_con.cursor()
     bookName = request.form['book']
     #print(bookName)
-    time = datetime.datetime.now()
-    #print(time)
-    dbEntry = "INSERT INTO booksBought(bookName, time) VALUES('"
-    dbEntry += str(bookName)
-    dbEntry += "','"
-    dbEntry += str(time)
-    dbEntry += "');"
-    #print(dbEntry)
-    cur.execute(dbEntry)
+    timeOfPurchase = datetime.datetime.now()
+    #print(timeOfPurchase)
+    dbCmdForBuyingBook = "INSERT INTO booksBought(bookName, time) VALUES('"
+    dbCmdForBuyingBook += str(bookName)
+    dbCmdForBuyingBook += "','"
+    dbCmdForBuyingBook += str(timeOfPurchase)
+    dbCmdForBuyingBook += "');"
+    #print(dbCmdForBuyingBook)
+    cur.execute(dbCmdForBuyingBook)
     global_db_con.commit()
     return "Book Bought!"
 #    return "book not bought!"
-
+# should add a way to add a user to this as well
 
 app.run(host='0.0.0.0', port=80)
 
