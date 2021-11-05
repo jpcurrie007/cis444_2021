@@ -6,14 +6,35 @@
 
     <body>
 
+
 	<script>
-		function checkEntryFields()
+		function addUserPressed()
 		{
-			//update this later to check the inputs values
-			//user name taken ect...
-			//should be used i both created user and logging user in
-			alert($('#username').val());
-			alert($('#password').val());
+			console.log("clicked button to add a new user");
+			$('#login').hide();
+			$('#addNewUser').show();
+			return true;
+		}
+	</script>
+
+
+	<script>
+	        function goToLogInPressedOnBuyBooks()
+                {
+			console.log("clicked button to logout");
+			$('#books').hide();
+			$('#login').show();
+			return true;
+		}
+        </script>
+
+
+	<script>
+		function goToLogInPressedOnCreateUser()
+		{
+			console.log("clicked button to return from sign up page to log in page");
+			$('#addNewUser').hide();
+			$('#login').show();
 			return true;
 		}
 	</script>
@@ -32,7 +53,7 @@
 					if(data == "VALID")
 					{
 						$('#addNewUser').hide();
-					        $('#login').show();
+						$('#login').show();
 						//alert(data);
 					}
 					else
@@ -41,37 +62,6 @@
 					}
 				}
 			});
-			return true;
-		}
-	</script>
-
-
-	<script>
-		function addUserPressed()
-		{
-			console.log("clicked button to add a new user");
-			$('#login').hide();
-			$('#addNewUser').show();
-			return true;
-		}
-	</script>
-
-	<script>
-	        function goToLogInPressedOnBuyBooks()
-                {
-			console.log("clicked button to logout");
-			$('#books').hide();
-			$('#login').show();
-			return true;
-		}
-        </script>
-
-	<script>
-		function goToLogInPressedOnCreateUser()
-		{
-			console.log("clicked button to return from sign up page to log in page");
-			$('#addNewUser').hide();
-			$('#login').show();
 			return true;
 		}
 	</script>
@@ -100,7 +90,6 @@
 			});
 		}
 	</script>
-
 
 
 	<script>
@@ -141,6 +130,18 @@
 		}
 	</script>
 
+
+	<script>
+		function checkEntryFields()
+		{
+			//update this later to check the inputs values
+			//user name taken ect...
+			//should be used i both created user and logging user in
+			alert($('#username').val());
+			alert($('#password').val());
+			return true;
+		}
+	</script>
 
 	
 	<div id="login">
