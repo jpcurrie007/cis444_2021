@@ -46,6 +46,7 @@ def back():
 
 @app.route('/backp',  methods=['POST']) #endpoint
 def backp():
+    #dont use below, got from hannah but doesnt work for me
     print(request.form)
     salted = bcrypt.hashpw( bytes(request.form['password'],  'utf-8' ) , bcrypt.gensalt(10))
     print(salted)
@@ -69,7 +70,7 @@ def backp():
     
     return json_respone(data=bookList)
 
-@app.route('/getBooks', methods=['POST']) #endpoint
+@app.route('/getBooksold', methods=['POST']) #endpoint dont use this jp, dont be a dumb dumb
 def getBooks():
     cur = global_db_con.cursor()
     cur.execute('SELECT bookName FROM books;')
@@ -80,8 +81,6 @@ def getBooks():
     print(booksID)
 
     return json_response(bookNames=bookNames,booksID=booksID)
-
-
 
 
 @app.route('/auth',  methods=['POST']) #endpoint
@@ -126,6 +125,99 @@ def hellodb():
     cur.execute("insert into music values( 'dsjfkjdkf', 1);")
     global_db_con.commit()
     return json_response(status="good")
+
+
+
+#Assingment 3
+
+
+
+@app.route('/getBooks', methods = ['GET']) #endpoint
+def retrieveBooks():
+    #print("getting books")
+    cur = global_db_con.cursor()
+    cur.execute("SELECT bookName FROM books;")
+    name = cur.fetchall();
+    #print("got the book names")
+    cur.execute("SELECT bookPrice FROM books;")
+    price = cur.fetchall();
+    #print("got the book prices")
+    return json_response(name = name, price = price)
+
+
+@app.route('/userAuth', methods = ['POST']) #endpoint
+def userAuth():
+    #print(request.form)
+    cur = global_db_con.cursor()
+    dbEntry = "SELECT password FROM users WHERE username ='"
+    dbEntry += request.form['username']
+    dbEntry += "';"
+    #print(dbEntry)
+    cur.execute(dbEntry)
+    r = cur.fetchone();
+    #print(r[0])
+    uPass = str(r[0])
+    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), uPass.encode('utf-8')):
+        return "VALID"
+    #print("INVALID")
+    return "INVALID"
+
+
+@app.route('/createNewUser', methods = ['POST']) #endpoint
+def createNewUser():
+    #print(request.form)
+    #get user info
+    newUser = request.form['username']
+    #print(newUser)
+    newPass = request.form['password']
+    #print(newPass)
+    #salt user password
+    salted = bcrypt.hashpw(bytes(request.form['password'], 'utf-8'), bcrypt.gensalt(10))
+    #Creating database entry
+    dbEntry = "INSERT INTO users(username, password) VALUES('"
+    dbEntry += str(newUser)
+    dbEntry += "','"
+    dbEntry += str(salted.decode('utf-8'))
+    dbEntry += "');"
+    #
+    #print(dbEntry)
+    cur = global_db_con.cursor()
+    cur.execute(dbEntry)
+    #
+    global_db_con.commit()
+    return "VALID"
+
+@app.route('/purchaseBook', methods = ['POST']) #endpoint
+def purchaseBook():
+##note to self, the commented out code below does not help secuirty but does work, ask cary why
+
+#    print(request.form)
+#    cur = global_db_con.cursor()
+#    dbEntry = "SELECT password FROM users WHERE username ='"
+#    dbEntry += request.form['username']
+#    dbEntry += "';"
+#    #print(dbEntry)
+#    cur.execute(dbEntry)
+#    r = cur.fetchone();
+#    #print(r[0])
+#    uPass = str(r[0])
+#    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), uPass.encode('utf-8')):
+    #print("buying book")
+    cur = global_db_con.cursor()
+    bookName = request.form['book']
+    #print(bookName)
+    time = datetime.datetime.now()
+    #print(time)
+    dbEntry = "INSERT INTO booksBought(bookName, time) VALUES('"
+    dbEntry += str(bookName)
+    dbEntry += "','"
+    dbEntry += str(time)
+    dbEntry += "');"
+    #print(dbEntry)
+    cur.execute(dbEntry)
+    global_db_con.commit()
+    return "Book Bought!"
+#    return "book not bought!"
 
 
 app.run(host='0.0.0.0', port=80)

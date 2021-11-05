@@ -9,6 +9,8 @@
 	<script>
 		function check_form()
 		{
+			//update this later to check the inputs values
+			//user name taken ect...
 			alert($('#username').val());
 			alert($('#password').val());
 			return true;
@@ -17,9 +19,27 @@
 
 
 	<script>
-		function newUserClicked()
+		function addNewUserClicked()
 		{
-			alert("New User Created");
+			//alert("New User Created");
+			$.ajax({
+				type: "POST",
+				url: "/createNewUser",
+				data: $("#addNewUserForm").serialize(),
+				success: function(data)
+				{
+					if(data == "VALID")
+					{
+						$('#addNewUser').hide();
+					        $('#login').show();
+						//alert(data);
+					}
+					else
+					{
+						alert("bad user creation please try again");
+					}
+				}
+			});
 			return true;
 		}
 	</script>
@@ -28,11 +48,22 @@
 	<script>
 		function addUserClicked()
 		{
+			console.log("clicked button to add a new user");
 			$('#login').hide();
 			$('#addNewUser').show();
 			return true;
 		}
 	</script>
+
+	<script>
+	        function goToLogIn()
+                {
+			console.log("clicked button to logout");
+			$('#books').hide();
+			$('#login').show();
+			return true;
+		}
+        </script>
 
 
 	<script>
@@ -44,9 +75,16 @@
 				data: $("#loginForm").serialize(),
 				success: function(data)
 				{
-					$('#login').hide();
-					$('#books').show();
-					showBooks;
+					if(data == "VALID")
+					{
+						$('#login').hide();
+						$('#books').show();
+						showBooks();
+					}
+					else
+					{
+						alert("bad long in please try again");
+					}
 				}
 			});
 		}
@@ -66,7 +104,7 @@
 					{
 						$('#bookList').append($('<option>', {value: data.name[i], text: 'Title: ' + data.name[i] + ' Price: $' + data.price[i]}));
 					}
-					alert("All books listed");
+					//alert("All books listed");
 				}
 			});
 		}
@@ -76,12 +114,8 @@
 	<script>
 		function purchaseBookClicked()
 		{
-
-			alert("Thank you for buying a book");
-
 			var b = document.getElementById('bookList');
 			var strBook = b.options[b.selectedIndex].value;
-
 
 			$.ajax({
 				type:"POST",
@@ -89,8 +123,8 @@
 				data: {book: strBook},
 				success: function(data)
 				{
-					if(data.status == null)
-						alert("There was an error in making your purchase");
+					alert(data);
+					//alert("Thank you for buying one of my books :)");
 				}
 			});
 		}
@@ -109,12 +143,13 @@
 		</form>
 	</div>
 
-	<div id="addNewUser" style = "display:none">
-		<form action = "/createNewUser" methl><br>
+	<div id="addNewUser" style="display:none">
+		<form id= "addNewUserForm">
+			<label for="username">Username:</label><br>
 			<input type="text" id="username" name="username" value="JP"><br>
 			<label for="password">New Password:</label><br>
 			<input type="password" id="password" name="password" value="Password"><br><br>
-			<input type="submit" value="Submit" onclick="return newUserClicked();">
+			<input type="button" value="Submit" onclick="return addNewUserClicked();">
 		</form>
 	</div>
 
@@ -123,6 +158,7 @@
 			<h1>Buy me</h1>
 			<select name="bookList" id="bookList"></select><br>
 			<input type="button" value="Purchase Book" id="purchaseButton" onclick="return purchaseBookClicked();">	
+			<input type="button" value="Log Out" onclick="return goToLogIn();">
 		</form>
 	</div>
 
