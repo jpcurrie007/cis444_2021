@@ -132,36 +132,6 @@ def hellodb():
 
 
 
-@app.route('/getBooks', methods = ['GET']) #endpoint
-def retrieveBooks():
-    #print("getting books")
-    cur = global_db_con.cursor()
-    cur.execute("SELECT bookName FROM books;")
-    name = cur.fetchall();
-    #print("got the book names")
-    cur.execute("SELECT bookPrice FROM books;")
-    price = cur.fetchall();
-    #print("got the book prices")
-    return json_response(name = name, price = price)
-
-
-@app.route('/userAuth', methods = ['POST']) #endpoint
-def userAuth():
-    #print(request.form)
-    cur = global_db_con.cursor()
-    dbCmdForGettingPass = "SELECT password FROM users WHERE username ='"
-    dbCmdForGettingPass += request.form['username']
-    dbCmdForGettingPass += "';"
-    #print(dbCmdForGettingPass)
-    cur.execute(dbCmdForGettingPass)
-    userPassword = cur.fetchone();
-    #print(userPassword[0])
-    #below needed because we can have more then one use with same name
-    #fix this in the static page
-    userPass = str(userPassword[0])
-    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), userPass.encode('utf-8')):
-        return "VALID"
-    return "INVALID"
 
 
 @app.route('/createNewUser', methods = ['POST']) #endpoint
@@ -184,7 +154,41 @@ def createNewUser():
     return "VALID"
     #should add way to return if there was an issue adding user to db, different then form check
 
-@app.route('/purchaseBook', methods = ['POST']) #endpoint
+
+
+@app.route('/userLogIn', methods = ['POST']) #endpoint
+def userLogIn():
+    #print(request.form)
+    cur = global_db_con.cursor()
+    dbCmdForGettingPass = "SELECT password FROM users WHERE username ='"
+    dbCmdForGettingPass += request.form['username']
+    dbCmdForGettingPass += "';"
+    #print(dbCmdForGettingPass)
+    cur.execute(dbCmdForGettingPass)
+    userPassword = cur.fetchone();
+    #print(userPassword[0])
+    #below needed because we can have more then one use with same name
+    #fix this in the static page
+    userPass = str(userPassword[0])
+    if bcrypt.checkpw( bytes(request.form['password'], 'utf-8'), userPass.encode('utf-8')):
+        return "VALID"
+    return "INVALID"
+
+
+@app.route('/getBooks', methods = ['GET']) #endpoint
+def retrieveBooks():
+    #print("getting books")
+    cur = global_db_con.cursor()
+    cur.execute("SELECT bookName FROM books;")
+    name = cur.fetchall();
+    #print("got the book names")
+    cur.execute("SELECT bookPrice FROM books;")
+    price = cur.fetchall();
+    #print("got the book prices")
+    return json_response(name = name, price = price)
+
+
+@app.route('/buyBook', methods = ['POST']) #endpoint
 def purchaseBook():
 ##note to self, the commented out code below does not help secuirty but does work, ask cary why
 
@@ -216,6 +220,7 @@ def purchaseBook():
     return "Book Bought!"
 #    return "book not bought!"
 # should add a way to add a user to this as well
+
 
 app.run(host='0.0.0.0', port=80)
 
