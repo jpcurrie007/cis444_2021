@@ -62,6 +62,11 @@
 			secure_get_with_token("/secure_api/get_books", {}, function (data) {
 					console.log("got books");
 					console.log(data);
+					for(var i = 0; i < data.name.length; i++)
+					{
+						$('#bookList').append($('<option>', {value: data.name[i], text: 'Name: ' + data.name[i] + ' Price: $' + data.price[i]}));
+					}
+					console.log("All books listed");
 					$('#books').show();
 				},
 				function (err) {

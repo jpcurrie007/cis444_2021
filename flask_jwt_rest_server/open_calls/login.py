@@ -15,15 +15,15 @@ def handle_request():
     dbCmdForGettingPass = "SELECT password FROM users WHERE username ='"
     dbCmdForGettingPass += request.form['username']
     dbCmdForGettingPass += "';"
-    print(dbCmdForGettingPass)
+    #print(dbCmdForGettingPass)
     cur.execute(dbCmdForGettingPass)
     userPassword = cur.fetchone();
-    print(userPassword[0])
-    #below needed because we can have more then one use with same name
-    #this needs fixing in the index.html page
-    userPass = str(userPassword[0])
+    #print(userPassword[0])
+    #below needed because we can have more then one user with same name
+    #this needs fixing in the index.html page and i need to clean out db
+    userPassFromDB = str(userPassword[0])
     password_from_user_form = request.form['password']
-    if bcrypt.checkpw( bytes(password_from_user_form, 'utf-8'), userPass.encode('utf-8')):
+    if bcrypt.checkpw( bytes(password_from_user_form, 'utf-8'), userPassFromDB.encode('utf-8')):
         print("logged in")
         user = {
             "sub" : request.form['username'] #sub is used by pyJwt as the owner of the token
