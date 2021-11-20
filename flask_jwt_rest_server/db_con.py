@@ -1,6 +1,5 @@
 import psycopg2
 
-
 def get_db():
     return psycopg2.connect(host="localhost", dbname="books" , user="jp", password="cis444")
 
@@ -9,8 +8,6 @@ def get_db_instance():
     cur  = db.cursor( )
 
     return db, cur 
-
-
 
 if __name__ == "__main__":
     db, cur = get_db_instance()
