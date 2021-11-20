@@ -44,7 +44,7 @@
 				},
 				function (data, textStatus) {
 					//this gets called when browser receives response from server
-					console.log(data.token);
+					//console.log(data.token);
 					//Set global JWT
 					jwt = data.token;
 					//make secure call with the jwt
@@ -60,15 +60,16 @@
 		function get_books() {
 			//make secure call with the jwt
 			secure_get_with_token("/secure_api/get_books", function (data) {
-					console.log("got books");
-					console.log(data);
+					//console.log("got books");
+					//console.log(data);
 					for (var i = 0; i < data.name.length; i++) {
 						$('#bookList').append($('<option>', {
 							value: data.name[i],
 							text: 'Name: ' + data.name[i] + ' Price: $' + data.price[i]
 						}));
 					}
-					console.log("All books listed");
+					//console.log("All books listed");
+					$('#login').hide();
 					$('#books').show();
 				},
 				function (err) {
