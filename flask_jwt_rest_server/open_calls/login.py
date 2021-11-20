@@ -11,7 +11,6 @@ from tools.logging import logger
 def handle_request():
     logger.debug("Login Handle Request")
     #use data here to auth the user
-    cur = g.cursor()
     cur = global_db_con.cursor()
     dbCmdForGettingPass = "SELECT password FROM users WHERE username ='"
     dbCmdForGettingPass += request.form['username']
