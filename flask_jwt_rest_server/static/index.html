@@ -19,8 +19,9 @@
 	</script>
 
 	<script>
-		function goToLogInPressedOnBuyBooks() {
+		function logOut() {
 			console.log("clicked button to logout");
+			$("#book_list").children(".item").remove();
 			$('#books').hide();
 			$('#login').show();
 			return true;
@@ -131,7 +132,7 @@
 			<h1>Buy me</h1>
 			<select name="bookList" id="bookList"></select><br>
 			<input type="button" value="Purchase Book" id="purchaseButton" onclick="return buyBookAction();">
-			<input type="button" value="Log Out" onclick="return goToLogInPressedOnBuyBooks();">
+			<input type="button" value="Log Out" onclick="return logOut();">
 		</form>
 	</div>
 
