@@ -21,7 +21,10 @@
 	<script>
 		function logOut() {
 			console.log("clicked button to logout");
-			$("#bookList").children(".item").remove();
+			jwt = null;
+			while($('#bookList').children('option').length > 0) {
+				$("#bookList").remove();
+			}
 			$('#books').hide();
 			$('#login').show();
 			return true;
