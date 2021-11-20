@@ -23,7 +23,7 @@
 			console.log("clicked button to logout");
 			jwt = null;
 			while($('#bookList').children('option').length > 0) {
-				$("#bookList").remove();
+				$("#bookList").children.remove();
 			}
 			$('#books').hide();
 			$('#login').show();
