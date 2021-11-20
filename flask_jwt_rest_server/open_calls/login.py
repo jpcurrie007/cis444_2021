@@ -24,6 +24,7 @@ def handle_request():
     userPass = str(userPassword[0])
     password_from_user_form = request.form['password']
     if bcrypt.checkpw( bytes(password_from_user_form, 'utf-8'), userPass.encode('utf-8')):
+        print("logged in")
         user = {
             "sub" : request.form['username'] #sub is used by pyJwt as the owner of the token
             }
