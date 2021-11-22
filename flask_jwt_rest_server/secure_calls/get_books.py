@@ -9,15 +9,15 @@ global_db_con = get_db()
 
 def handle_request():
     logger.debug("Get Books Handle Request")
-    #print("getting books")
+    print("getting books")
     cur = global_db_con.cursor()
     cur.execute("SELECT bookName FROM books;")
     name = cur.fetchall();
-    #print(name)
-    #print("got the book names")
+    print(name)
+    print("got the book names")
     cur.execute("SELECT bookPrice FROM books;")
     price = cur.fetchall();
-    #print(price)
-    #print("got the book prices")
+    print(price)
+    print("got the book prices")
 
-    return json_response(status=200, token = create_token(g.jwt_data) , name = name , price = price, authenticated = True)
+    return json_response(token = create_token(g.jwt_data) , name = name , price = price)
