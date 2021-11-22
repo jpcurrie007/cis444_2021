@@ -27,6 +27,7 @@ FlaskJSON(app)
 def init_new_env():
     if 'db' not in g:
         g.db = get_db()
+        g.cur = g.db.cursor()
 
     g.secrets = get_secrets()
 
