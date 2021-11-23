@@ -12,6 +12,7 @@ def handle_request():
     logger.debug("Buy Book Handle Request")
     cur = global_db_con.cursor()
     data = request.get_data()
+    print(data)
     book = data.decode("utf-8")
     logger.debug(book)
     #print(bookName)

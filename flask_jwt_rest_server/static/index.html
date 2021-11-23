@@ -100,17 +100,15 @@
 
 		function buyBookAction() {
 			var book = document.getElementById('bookList');
+			console.log(book);
 			var bookBought = book.options[book.selectedIndex].value;
-
-			book = $('#bookSelection').find(":selected").text()
-			console.log(book)
 
 			//make secure call with the jwt
 			secure_get_with_token("/secure_api/buyBook", {
-					book
+				bookBought
 				}, function (data) {
 					console.log("bought books");
-					alter(data.message);
+					alert(data.message);
 				},
 				function (err) {
 					console.log(err)
