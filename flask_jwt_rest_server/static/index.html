@@ -62,9 +62,12 @@
 		}
 
 		function loginAction() {
+			username = $('#logUsername').val(),
+			console.log(username);
+			password =  $('#logPassword').val()
+			console.log(password);
 			$.post("/open_api/login", {
-					"username": $('#logUsername').val(),
-					"password": $('#logPassword').val()
+				username, password
 				},
 				function (data, textStatus) {
 					//this gets called when browser receives response from server
