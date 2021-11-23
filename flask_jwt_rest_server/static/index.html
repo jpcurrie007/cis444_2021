@@ -22,7 +22,7 @@
 		function logOut() {
 			console.log("clicked button to logout");
 			jwt = null;
-			while($('#bookList').children('option').length > 0) {
+			while ($('#bookList').children('option').length > 0) {
 				$("#bookList").children('option').remove();
 			}
 			$('#books').hide();
@@ -43,16 +43,17 @@
 	<script>
 		function addNewUserAction() {
 			$.post("/open_api/createNewUser", {
-				"username": $('#username').val(),
-				"password": $('#password').val()
-			},
-			function (data) {
-				alert(data);
-				$('#addNewUser').hide();
-				$('#login').show();
-			},
-			function (err) {
-				console.log(err)
+					"username": $('#username').val(),
+					"password": $('#password').val()
+				},
+				function (data) {
+					alert(data);
+					$('#addNewUser').hide();
+					$('#login').show();
+				}, "json").fail(function (response) {
+				//this gets called if the server throws an error
+				console.log("error");
+				console.log(response);
 			});
 			return false;
 		}
