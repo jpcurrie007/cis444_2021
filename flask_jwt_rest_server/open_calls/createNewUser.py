@@ -15,7 +15,7 @@ def handle_request():
     #print(newUser)
     newPassword = request.args.get('password')
     #print(newPassword)
-    saltedPassword = bcrypt.hashpw(bytes(newPassword, 'utf-8'), bcrypt.gensalt(10))
+    saltedPassword = bcrypt.hashpw(bytes(str(newPassword), 'utf-8'), bcrypt.gensalt(10))
     dbCmdForNewUser = "INSERT INTO users(username, password) VALUES('"
     dbCmdForNewUser += str(newUser)
     dbCmdForNewUser += "','"
