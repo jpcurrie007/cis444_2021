@@ -58,8 +58,6 @@
 			return false;
 		}
 
-
-
 		function loginAction() {
 			$.post("/open_api/login", {
 					"username": $('#username').val(),
@@ -100,13 +98,15 @@
 				});
 		}
 
-		function buy_book(book_id) {
+		function buy_book() {
+			var book = document.getElementById('bookList');
+			var bookBought = book.options[book.selectedIndex].value;
 			//make secure call with the jwt
 			secure_get_with_token("/secure_api/get_books", {
-					"book_id": book_id
+					book: bookBought
 				}, function (data) {
 					console.log("bought books");
-					console.log(data)
+					alter(data.message);
 				},
 				function (err) {
 					console.log(err)
