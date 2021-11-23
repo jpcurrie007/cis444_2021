@@ -98,11 +98,11 @@
 				});
 		}
 
-		function buy_book() {
+		function buyBookAction() {
 			var book = document.getElementById('bookList');
 			var bookBought = book.options[book.selectedIndex].value;
 			//make secure call with the jwt
-			secure_get_with_token("/secure_api/get_books", {
+			secure_get_with_token("/secure_api/buyBook", {
 					book: bookBought
 				}, function (data) {
 					console.log("bought books");
