@@ -78,16 +78,16 @@
 				},
 				function (err) {
 					console.log(err)
-					console.log("got books");
-					for (var i = 0; i < err.name.length; i++) {
-						$('#bookList').append($('<option>', {
-							value: err.name[i],
-							text: 'Name: ' + err.name[i] + ' Price: $' + err.price[i]
-						}));
-					}
+					//console.log("got books");
+					//for (var i = 0; i < err.name.length; i++) {
+						//$('#bookList').append($('<option>', {
+							//value: err.name[i],
+							//text: 'Name: ' + err.name[i] + ' Price: $' + err.price[i]
+						//}));
+					//}
 					//console.log("All books listed");
-					$('#login').hide();
-					$('#books').show();
+					//$('#login').hide();
+					//$('#books').show();
 				});
 		}
 
