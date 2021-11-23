@@ -21,7 +21,7 @@
 	<script>
 		function logOut() {
 			console.log("clicked button to logout");
-			//jwt = null;
+			jwt = null;
 			while($('#bookList').children('option').length > 0) {
 				$("#bookList").children('option').remove();
 			}
@@ -48,7 +48,7 @@
 				},
 				function (data, textStatus) {
 					//this gets called when browser receives response from server
-					console.log(data.token);
+					//console.log(data.token);
 					//Set global JWT
 					jwt = data.token;
 					//make secure call with the jwt
@@ -64,8 +64,8 @@
 		function get_books() {
 			//make secure call with the jwt
 			secure_get_with_token("/secure_api/get_books", {}, function (data) {
-					console.log("got books");
-					console.log(data);
+					//console.log("got books");
+					//console.log(data);
 					for (var i = 0; i < data.name.length; i++) {
 						$('#bookList').append($('<option>', {
 							value: data.name[i],
@@ -78,16 +78,6 @@
 				},
 				function (err) {
 					console.log(err)
-					//console.log("got books");
-					//for (var i = 0; i < err.name.length; i++) {
-						//$('#bookList').append($('<option>', {
-							//value: err.name[i],
-							//text: 'Name: ' + err.name[i] + ' Price: $' + err.price[i]
-						//}));
-					//}
-					//console.log("All books listed");
-					//$('#login').hide();
-					//$('#books').show();
 				});
 		}
 
@@ -104,19 +94,6 @@
 				});
 		}
 	</script>
-
-
-	<!--   cary example
-	     <div id="login">
-	    <form >
-  			<label for="fname">First name:</label><br>
-  				<input type="text" id="fname" name="fname" value="John"><br>
-  			<label for="password">Password:</label><br>
-  				<input type="password" id="password" name="password" value="12212"><br><br>
-  			<input type="submit" value="Signup" onclick="return send_form();">
-		</form>
-	    </div>
-	    <button id="buybook" onclick="buy_book(1234)" style="display:none" >Buy Book</button> -->
 
 	<div id="login">
 		<form id="loginForm">

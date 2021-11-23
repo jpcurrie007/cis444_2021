@@ -15,10 +15,10 @@ def handle_request():
     dbCmdForGettingPass = "SELECT password FROM users WHERE username ='"
     dbCmdForGettingPass += request.form['username']
     dbCmdForGettingPass += "';"
-    print(dbCmdForGettingPass)
+    #print(dbCmdForGettingPass)
     cur.execute(dbCmdForGettingPass)
     userPassword = cur.fetchone();
-    print(userPassword[0])
+    #print(userPassword[0])
     #below needed because we can have more then one user with same name
     #this needs fixing in the index.html page and i need to clean out db
     userPassFromDB = str(userPassword[0])
