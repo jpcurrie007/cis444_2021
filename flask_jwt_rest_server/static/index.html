@@ -63,7 +63,7 @@
 
 		function get_books() {
 			//make secure call with the jwt
-			secure_get_with_token("/secure_api/get_books", function (data) {
+			secure_get_with_token("/secure_api/get_books", {}, function (data) {
 					console.log("got books");
 					console.log(data);
 					for (var i = 0; i < data.name.length; i++) {
