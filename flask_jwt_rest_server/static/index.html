@@ -42,9 +42,9 @@
 
 	<script>
 		function addNewUserAction() {
-			username = $('#username').val();
+			username = $('#newusername').val();
 			console.log(username);
-			password = $('#password').val();
+			password = $('#newpassword').val();
 			console.log(password);
 			$.post("/open_api/createNewUser", {
 					username, password
@@ -63,8 +63,8 @@
 
 		function loginAction() {
 			$.post("/open_api/login", {
-					"username": $('#username').val(),
-					"password": $('#password').val()
+					"username": $('#logUsername').val(),
+					"password": $('#logPassword').val()
 				},
 				function (data, textStatus) {
 					//this gets called when browser receives response from server
@@ -122,10 +122,10 @@
 
 	<div id="login">
 		<form id="loginForm">
-			<label for="username">Username:</label><br>
-			<input type="text" id="username" name="username" value=""><br>
-			<label for="password">Password:</label><br>
-			<input type="password" id="password" name="password" value=""><br><br>
+			<label for="logUsername">Username:</label><br>
+			<input type="text" id="logUsername" name="logUsername" value=""><br>
+			<label for="logPassword">Password:</label><br>
+			<input type="password" id="LogPassword" name="LogPassword" value=""><br><br>
 			<input type="button" value="Login" id="Login" onclick="return loginAction();">
 			<input type="button" value="Create New User" onclick="return addUserPressed();">
 		</form>
@@ -133,10 +133,10 @@
 
 	<div id="addNewUser" style="display:none">
 		<form id="addNewUserForm">
-			<label for="username">Username:</label><br>
-			<input type="text" id="username" name="username" value=""><br>
-			<label for="password">New Password:</label><br>
-			<input type="password" id="password" name="password" value=""><br><br>
+			<label for="newusername">Username:</label><br>
+			<input type="text" id="newusername" name="newusername" value=""><br>
+			<label for="newpassword">New Password:</label><br>
+			<input type="password" id="newpassword" name="newpassword" value=""><br><br>
 			<input type="button" value="Submit" onclick="return addNewUserAction();">
 			<input type="button" value="Go Back" onclick="return goToLogInPressedOnCreateUser();">
 		</form>
