@@ -41,6 +41,24 @@
 	</script>
 
 	<script>
+		function addNewUserAction() {
+			$.post("open_api/createNewUser", {
+				"username": $('#username').val(),
+				"password": $('#password').val()
+			},
+			function (data) {
+				alert(data);
+				$('#addNewUser').hide();
+				$('#login').show();
+			},
+			function (err) {
+				console.log(err)
+			});
+			return false;
+		}
+
+
+
 		function loginAction() {
 			$.post("/open_api/login", {
 					"username": $('#username').val(),
