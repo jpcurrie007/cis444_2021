@@ -11,7 +11,7 @@ global_db_con = get_db()
 def handle_request():
     logger.debug("Buy Book Handle Request")
     cur = global_db_con.cursor()
-    book = request.args
+    book = request.args.get('bookbought')
     print(book)
     print(book[1])
     timeOfPurchase = datetime.datetime.now()
