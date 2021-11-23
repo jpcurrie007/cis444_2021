@@ -79,11 +79,10 @@
 				function (err) {
 					console.log(err)
 					console.log("got books");
-					console.log(data);
-					for (var i = 0; i < data.name.length; i++) {
+					for (var i = 0; i < err.name.length; i++) {
 						$('#bookList').append($('<option>', {
-							value: data.name[i],
-							text: 'Name: ' + data.name[i] + ' Price: $' + data.price[i]
+							value: err.name[i],
+							text: 'Name: ' + err.name[i] + ' Price: $' + err.price[i]
 						}));
 					}
 					//console.log("All books listed");
