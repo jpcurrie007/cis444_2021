@@ -20,4 +20,4 @@ def handle_request():
     print(price)
     print("got the book prices")
 
-    return json_response(token = create_token(g.jwt_data), trash = "trash", name = name , price = price)
+    return json_response(token = create_token(g.jwt_data), name = name )
