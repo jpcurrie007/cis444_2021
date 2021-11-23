@@ -42,7 +42,7 @@
 
 	<script>
 		function addNewUserAction() {
-			$.post("open_api/createNewUser", {
+			$.post("/open_api/createNewUser", {
 				"username": $('#username').val(),
 				"password": $('#password').val()
 			},
