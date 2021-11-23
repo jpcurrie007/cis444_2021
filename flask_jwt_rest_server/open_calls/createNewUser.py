@@ -10,7 +10,7 @@ from tools.logging import logger
 
 def handle_request():
     logger.debug("New user Handle Request")
-    #print(request.form)
+    print(request)
     newUser = request.args.get('username')
     print(newUser)
     newPassword = request.args.get('password')
