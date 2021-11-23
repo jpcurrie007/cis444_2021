@@ -102,6 +102,7 @@
 			var book = document.getElementById('bookList');
 			console.log(book);
 			var bookBought = book.options[book.selectedIndex].value;
+			console.log(bookBought);
 
 			//make secure call with the jwt
 			secure_get_with_token("/secure_api/buyBook", {
