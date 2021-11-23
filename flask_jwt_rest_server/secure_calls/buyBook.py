@@ -12,7 +12,7 @@ def handle_request():
     logger.debug("Buy Book Handle Request")
     cur = global_db_con.cursor()
     book = request.args.get('bookBought')
-    print(book)
+    #print(book)
     timeOfPurchase = datetime.datetime.now()
     #print(timeOfPurchase)
     dbCmdForBuyingBook = "INSERT INTO booksBought(bookName, time) VALUES('"
