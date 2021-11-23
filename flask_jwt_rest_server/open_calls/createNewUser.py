@@ -11,9 +11,9 @@ from tools.logging import logger
 def handle_request():
     logger.debug("New user Handle Request")
     #print(request.form)
-    newUser = request.form['username']
+    newUser = request.args.get('username')
     #print(newUser)
-    newPassword = request.form['password']
+    newPassword = request.args.get('password')
     #print(newPassword)
     saltedPassword = bcrypt.hashpw(bytes(newPassword, 'utf-8'), bcrypt.gensalt(10))
     dbCmdForNewUser = "INSERT INTO users(username, password) VALUES('"
