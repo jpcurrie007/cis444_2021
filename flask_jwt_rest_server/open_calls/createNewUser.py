@@ -10,18 +10,18 @@ from tools.logging import logger
 
 def handle_request():
     logger.debug("New user Handle Request")
-    print(request.form)
+    #print(request.form)
     newUser = request.form['username']
-    print(newUser)
+    #print(newUser)
     newPassword = request.form['password']
-    print(newPassword)
+    #print(newPassword)
     saltedPassword = bcrypt.hashpw(bytes(newPassword, 'utf-8'), bcrypt.gensalt(10))
     dbCmdForNewUser = "INSERT INTO users(username, password) VALUES('"
     dbCmdForNewUser += str(newUser)
     dbCmdForNewUser += "','"
     dbCmdForNewUser += str(saltedPassword.decode('utf-8'))
     dbCmdForNewUser += "');"
-    print(dbCmdForNewUser)
+    #print(dbCmdForNewUser)
     cur = global_db_con.cursor()
     cur.execute(dbCmdForNewUser)
     global_db_con.commit()

@@ -47,7 +47,7 @@
 					"password": $('#password').val()
 				},
 				function (data) {
-					alert(data);
+					alert(data.message);
 					$('#addNewUser').hide();
 					$('#login').show();
 				}, "json").fail(function (response) {
