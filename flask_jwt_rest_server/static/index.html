@@ -96,6 +96,8 @@
 
 		function sendChat() {
 			console.log("sending chat")
+			var chat = document.getElementById('chatLog');
+			chat = "new text";
 		}
 
 		function get_books() {
@@ -138,7 +140,7 @@
 	</script>
 
 	<div id = "chat" style="height:500px; width:500px; border:1px solid #ccc; overflow:auto; display: none;">
-		<form id="chatForm">
+		<form id="chatLog">
 			As you can see, once there's enough text in this box, the box will grow scroll bars... that's why 
 		</form>
 	</div>
