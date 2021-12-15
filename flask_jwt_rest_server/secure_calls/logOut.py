@@ -22,4 +22,24 @@ def handle_request():
     cur.execute(dbCmdFordeletingChat)
     global_db_con.commit()
 
+    message = " has left the chatroom!"
+
+    dbCmdForNewChat = "INSERT INTO chatlog(username, message) VALUES('"
+    dbCmdForNewChat += str(username)
+    dbCmdForNewChat += "','"
+    dbCmdForNewChat += str(message)
+    dbCmdForNewChat += "');"
+    print(dbCmdForNewChat)
+    cur.execute(dbCmdForNewChat)
+    global_db_con.commit()
+
+    dbCmdForNewChat = "INSERT INTO chatroom(username, message) VALUES('"
+    dbCmdForNewChat += str(username)
+    dbCmdForNewChat += "','"
+    dbCmdForNewChat += str(message)
+    dbCmdForNewChat += "');"
+    print(dbCmdForNewChat)
+    cur.execute(dbCmdForNewChat)
+    global_db_con.commit()
+
     return json_response(token = create_token(g.jwt_data))

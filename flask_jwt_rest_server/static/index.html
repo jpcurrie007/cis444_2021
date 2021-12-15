@@ -108,7 +108,7 @@
 			console.log(message);
 
 			secure_get_with_token("/secure_api/sendChat", {username, message}, function (data) {
-				var chat = "";
+				var chat = "Welcome to JP's chat room <br>";
 				for(var i = 0 ; i < data.message.length ; i++) {
 					chat += data.username[i] + ": " + data.message[i] + "<br>"
 				}
@@ -122,7 +122,7 @@
 
 		setInterval(function refreshChat(){
 			secure_get_with_token("/secure_api/refreshChat", {}, function (data) {
-				var chat = "";
+				var chat = "Welcome to JP's chat room <br>";
 				for(var i = 0 ; i < data.message.length ; i++) {
 					chat += data.username[i] + ": " + data.message[i] + "<br>"
 				}
@@ -175,7 +175,7 @@
 	</script>
 
 	<div id = "chat" style="height:500px; width:500px; border:1px solid #ccc; overflow:auto; display: none;">
-			Welcome to JP's chat room
+			Welcome to JP's chat room <br>
 	</div>
 
 	<div id="chatButtons" style="display:none">
