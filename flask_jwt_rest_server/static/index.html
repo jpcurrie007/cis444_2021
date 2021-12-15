@@ -96,11 +96,22 @@
 
 		function sendChat() {
 			console.log("sending chat")
-			var chat = "new text";
-			console.log(chat);
-			$('#chat').empty();
-			$('#chat').append(chat);
-			$('#chat').value = ("<br/>" + chat);
+			username = $('#logUsername').val();
+			console.log(username);
+			message = $('#chatMessage').val();
+			console.log(message);
+
+			secure_get_with_token("/secure_api/sendChat", {username, message}, function (data) {
+				var chat = "";
+				for(var i = 0 ; i < data.message.length ; i++) {
+					chat += data.username[i] + ": " + data.message[i] + "<br>"
+				}
+				$('#chat').empty();
+				$('#chat').append(chat);
+				},
+				function (err) {
+					console.log(err)
+				});
 		}
 
 		function get_books() {
