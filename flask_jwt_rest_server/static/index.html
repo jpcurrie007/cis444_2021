@@ -99,7 +99,7 @@
 			var chat = document.getElementById('chatLog');
 			console.log(chat);
 			chat = "new text";
-			$('chatLog') = chat;
+			$('chatLog').contents() = chat;
 		}
 
 		function get_books() {
