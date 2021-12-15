@@ -16,11 +16,21 @@
 			$('#addNewUser').show();
 			return true;
 		}
-	</script>
-
-	<script>
+	
 		function logOut() {
 			//console.log("clicked button to logout");
+			username = $('#logUsername').val();
+			console.log(username);
+
+			secure_get_with_token("/secure_api/logOut", {username}, function (data) {
+				$('#chat').empty();
+				$('#logUsername').empty();
+				$('#LogPassword').empty();
+				},
+				function (err) {
+					console.log(err)
+				});
+
 			jwt = null;
 			while ($('#bookList').children('option').length > 0) {
 				$("#bookList").children('option').remove();
@@ -31,18 +41,14 @@
 			$('#login').show();
 			return true;
 		}
-	</script>
-
-	<script>
+	
 		function goToLogInPressedOnCreateUser() {
 			//console.log("clicked button to return from sign up page to log in page");
 			$('#addNewUser').hide();
 			$('#login').show();
 			return true;
 		}
-	</script>
-
-	<script>
+	
 		function addNewUserAction() {
 			username = $('#newusername').val();
 			//console.log(username);
@@ -151,6 +157,7 @@
 					console.log(err)
 				});
 		}
+
 	</script>
 
 	<div id = "chat" style="height:500px; width:500px; border:1px solid #ccc; overflow:auto; display: none;">
