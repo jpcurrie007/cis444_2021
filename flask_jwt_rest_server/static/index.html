@@ -100,7 +100,7 @@
 			$('#chatButtons').show();
 		}
 
-		function sendChat() {
+		setInterval( function sendChat() {
 			console.log("sending chat")
 			username = $('#logUsername').val();
 			console.log(username);
@@ -118,7 +118,7 @@
 				function (err) {
 					console.log(err)
 				});
-		}
+		}, 1000)
 
 		function get_books() {
 			//make secure call with the jwt
