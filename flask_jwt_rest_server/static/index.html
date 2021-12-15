@@ -100,7 +100,7 @@
 			$('#chatButtons').show();
 		}
 
-		setInterval( function sendChat() {
+		function sendChat() {
 			console.log("sending chat")
 			username = $('#logUsername').val();
 			console.log(username);
@@ -108,6 +108,20 @@
 			console.log(message);
 
 			secure_get_with_token("/secure_api/sendChat", {username, message}, function (data) {
+				var chat = "";
+				for(var i = 0 ; i < data.message.length ; i++) {
+					chat += data.username[i] + ": " + data.message[i] + "<br>"
+				}
+				$('#chat').empty();
+				$('#chat').append(chat);
+				},
+				function (err) {
+					console.log(err)
+				});
+		}
+
+		setInterval(function refreshChat(){
+			secure_get_with_token("/secure_api/refreshChat", {}, function (data) {
 				var chat = "";
 				for(var i = 0 ; i < data.message.length ; i++) {
 					chat += data.username[i] + ": " + data.message[i] + "<br>"
