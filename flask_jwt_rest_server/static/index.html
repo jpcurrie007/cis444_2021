@@ -96,9 +96,10 @@
 
 		function sendChat() {
 			console.log("sending chat")
+			var chat = "new text";
 			console.log(chat);
-			chat = "new text";
-			$('#chatLog').value.change("<br/>" + chat);
+			var log = $('#chatLog').value;
+			$('#chatLog').value = ("<br/>" + chat);
 		}
 
 		function get_books() {
