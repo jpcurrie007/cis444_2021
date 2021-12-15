@@ -9,8 +9,6 @@
 
 <body>
 
-
-
 	<script>
 		function addUserPressed() {
 			//console.log("clicked button to add a new user");
@@ -28,6 +26,8 @@
 				$("#bookList").children('option').remove();
 			}
 			$('#books').hide();
+			$('#chat').hide();
+			$('#chatButtons').hide();
 			$('#login').show();
 			return true;
 		}
@@ -95,7 +95,7 @@
 		}
 
 		function sendChat() {
-			
+
 		}
 
 		function get_books() {
@@ -137,7 +137,7 @@
 		}
 	</script>
 
-	<div id = "chat" style="height:1000px; width:500px; border:1px solid #ccc; overflow:auto; display: none;">
+	<div id = "chat" style="height:500px; width:500px; border:1px solid #ccc; overflow:auto; display: none;">
 		<form id="chatForm">
 			As you can see, once there's enough text in this box, the box will grow scroll bars... that's why 
 		</form>
@@ -145,6 +145,7 @@
 
 	<div id="chatButtons" style="display:none">
 		<form>
+			<input type="text" id="chatMessage" name="chatMessage" value=""><br>
 			<input type="button" value="Send Chat" onclick="return sendChat();">
 			<input type="button" value="Log Out" onclick="return logOut();">
 		</form>
