@@ -98,9 +98,8 @@
 			console.log("sending chat")
 			var chat = "new text";
 			console.log(chat);
-			$('#chat').data.value = "";
+			$('#chat').removeData();
 			$('#chat').append(chat);
-			console.log(log);
 			$('#chat').value = ("<br/>" + chat);
 		}
 
