@@ -97,6 +97,7 @@
 		function sendChat() {
 			//console.log("sending chat")
 			var chat = document.getElementById('chatLog');
+			document.getElementById('chatLog').value="";
 			//console.log(chat);
 			chat = "new text";
 			$('#chatLog').append("<br/>" + chat);
