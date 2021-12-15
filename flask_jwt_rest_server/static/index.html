@@ -8,6 +8,22 @@
 </head>
 
 <body>
+	<main>
+		<header>
+		  <div class="user-count">0</div>
+		  <h1>JP's Chat</h1>
+		</header>
+	  
+		<section class="chat">
+		  
+		  
+		</section>
+	  
+		<form>
+		  <input type="text" placeholder="Say something nice" />
+		  <button>Send</button>
+		</form>
+	  </main>
 
 	<script>
 		function addUserPressed() {
@@ -43,9 +59,9 @@
 	<script>
 		function addNewUserAction() {
 			username = $('#newusername').val();
-			console.log(username);
+			//console.log(username);
 			password = $('#newpassword').val();
-			console.log(password);
+			//console.log(password);
 			$.post("/open_api/createNewUser", {
 					username, password
 				},
@@ -63,9 +79,9 @@
 
 		function loginAction() {
 			username = $('#logUsername').val();
-			console.log(username);
+			//console.log(username);
 			password =  $('#LogPassword').val();
-			console.log(password);
+			//console.log(password);
 			$.post("/open_api/login", {
 				username, password
 				},
@@ -76,6 +92,8 @@
 					jwt = data.token;
 					//make secure call with the jwt
 					get_books();
+					//instead of above to go to books we want to go to my chat room instead
+
 				}, "json").fail(function (response) {
 				//this gets called if the server throws an error
 				console.log("error");
