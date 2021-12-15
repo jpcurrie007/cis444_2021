@@ -95,13 +95,10 @@
 		}
 
 		function sendChat() {
-			//console.log("sending chat")
-			var chat = document.getElementById('chatLog');
-			$('chatLog').value="";
+			console.log("sending chat")
 			console.log(chat);
 			chat = "new text";
-			$('#chatLog').append("<br/>" + chat);
-			console.log(chat);
+			$('#chatLog').change("<br/>" + chat);
 		}
 
 		function get_books() {
