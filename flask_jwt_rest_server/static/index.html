@@ -98,9 +98,9 @@
 			console.log("sending chat")
 			var chat = "new text";
 			console.log(chat);
-			var log = $('#chatLog').value;
+			var log = $('#chat').value;
 			console.log(log);
-			$('#chatLog').value = ("<br/>" + chat);
+			$('#chat').value = ("<br/>" + chat);
 		}
 
 		function get_books() {
@@ -143,9 +143,7 @@
 	</script>
 
 	<div id = "chat" style="height:500px; width:500px; border:1px solid #ccc; overflow:auto; display: none;">
-		<form id="chatLog">
 			Welcome to JP's chat room
-		</form>
 	</div>
 
 	<div id="chatButtons" style="display:none">
