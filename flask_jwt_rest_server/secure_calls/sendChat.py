@@ -11,9 +11,9 @@ global_db_con = get_db()
 def handle_request():
     logger.debug("Send chat Handle Request")
     cur = global_db_con.cursor()
-    username = request.form['username']
+    username = request.args.get('username')
     print(username)
-    message = request.form['message']
+    message = request.args.get('message')
     print(message)
 
     dbCmdForNewChat = "INSERT INTO chatlog(username, message) VALUES('"
